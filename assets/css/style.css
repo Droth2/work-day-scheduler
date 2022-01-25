@@ -4,13 +4,14 @@ body {
   line-height: 1;
 }
 
-textarea{
+textarea,
+.task-text {
   background: transparent;
   border: none;
   resize: none;
   color: #000000;
   border-left: 1px solid black;
-  padding: 10px;
+  padding: 1rem 10px 10px 10px;
 }
 
 .jumbotron {
@@ -40,6 +41,8 @@ textarea{
   background-color: #ffffff;
   color: #000000;
   border-top: 1px dashed #000000;
+  text-align: center;
+  padding-top: 1rem;
 }
 
 .past {
