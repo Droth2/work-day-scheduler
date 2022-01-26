@@ -33,8 +33,14 @@ var loadTasks = function() {
     };
   }
 
-  
-}
+  $.each(tasks, function(time, arr) {
+      arr.forEach(function(task) {
+          var pTask = $('<p>').addClass('col-md-9 mb-0 task-text');
+          pTask.text(task);
+          $('#' + time).children('textarea').replaceWith(pTask);
+      });
+  });
+};
 
 // on save button click convert text area value to an h4 element
 $('.row').on('click', 'button', function() {
