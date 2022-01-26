@@ -14,6 +14,28 @@ var today = dayOfWeek + " " + dayOfMonth + " of " + curMonth + ", " + curYear;
 // adds current date to header
 $('#currentDay').text(today);
 
+var loadTasks = function() {
+    tasks = JSON.parse(localStorage.getItem("workTasks"));
+
+  // if nothing in localStorage, create a new object to track all task status arrays
+  if (!tasks) {
+    tasks = {
+      9: [],
+      10: [],
+      11: [],
+      12: [],
+      1: [],
+      2: [],
+      3: [],
+      4: [],
+      5: [],
+      6: []
+    };
+  }
+
+  
+}
+
 // on save button click convert text area value to an h4 element
 $('.row').on('click', 'button', function() {
     var text = $(this).closest('div').children('textarea').val();
@@ -21,8 +43,8 @@ $('.row').on('click', 'button', function() {
     $(this).closest('div').children('textarea').replaceWith(task);
 
     var timeOfDay = $(this).closest('div').attr('id');
-    tasks[timeOfDay].text = text
-    //saveTask();
+    tasks[timeOfDay][0] = text;
+    saveTask();
 });
 
 // on h4 element click creat text area
@@ -32,3 +54,9 @@ $('.row').on('click', 'p', function() {
     $(this).replaceWith(textInput);
     textInput.trigger('focus');
 });
+
+var saveTask = function() {
+    localStorage.setItem('workTasks', JSON.stringify(tasks));
+};
+
+loadTasks();
