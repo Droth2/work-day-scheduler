@@ -24,12 +24,12 @@ var loadTasks = function() {
       10: [],
       11: [],
       12: [],
-      1: [],
-      2: [],
-      3: [],
-      4: [],
-      5: [],
-      6: []
+      13: [],
+      14: [],
+      15: [],
+      16: [],
+      17: [],
+      18: []
     };
   }
 
@@ -51,6 +51,7 @@ $('.row').on('click', 'button', function() {
     var timeOfDay = $(this).closest('div').attr('id');
     tasks[timeOfDay][0] = text;
     saveTask();
+    auditTimeOfDay();
 });
 
 // on h4 element click creat text area
@@ -61,8 +62,36 @@ $('.row').on('click', 'p', function() {
     textInput.trigger('focus');
 });
 
+var auditTimeOfDay = function() {
+    for (var i = 9; i < 19; i++) {
+        var rowEl = $('#' + [i]).children('textarea');
+        var currentTime = new Date();
+        var currentHour = currentTime.getHours();
+        if (i < currentHour) {
+            rowEl.addClass('past');
+        } else if (i === currentHour) {
+            rowEl.addClass('present');
+        } else if (i > currentHour) {
+            rowEl.addClass('future');
+        }
+        var rowEl2 = $('#' + [i]).children('p');
+        if (i < currentHour) {
+            rowEl2.addClass('past');
+        } else if (i === currentHour) {
+            rowEl2.addClass('present');
+        } else if (i > currentHour) {
+            rowEl2.addClass('future');
+        }
+    };
+};
+
 var saveTask = function() {
     localStorage.setItem('workTasks', JSON.stringify(tasks));
 };
 
 loadTasks();
+auditTimeOfDay();
+
+setInterval(function() {
+    auditTimeOfDay();
+}, 1800000);
